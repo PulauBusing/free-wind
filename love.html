@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>情人节快乐</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffebee;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .message {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #e91e63;
+            font-size: 2.5em;
+        }
+
+        p {
+            color: #333;
+            font-size: 1.2em;
+        }
+
+        .heart {
+            position: absolute;
+            color: #e91e63;
+            font-size: 20px;
+            animation: fly 5s linear infinite;
+        }
+
+        @keyframes fly {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) translateX(calc(100vw * var(--random)));
+                opacity: 0;
+            }
+        }
+
+        .gift-box {
+            width: 100px;
+            height: 100px;
+            background-color: #e91e63;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .gift-box:hover {
+            transform: scale(1.1);
+        }
+
+        .delivery-message {
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: #e91e63;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="message">
+        <h1>老婆，情人节快乐❥(^_-)</h1>
+        <p>愿你的每一天都充满爱与幸福！</p>
+    </div>
+
+    <!-- 礼物盒 -->
+    <div class="gift-box" onclick="openGift()">
+        🎁
+    </div>
+
+    <!-- 派送中提示 -->
+    <div class="delivery-message" id="deliveryMessage">
+        正在派送中...期待一下吧
+    </div>
+
+    <!-- 爱心元素 -->
+    <div id="hearts-container"></div>
+
+    <script>
+        // 创建爱心元素
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw'; // 随机水平位置
+            heart.style.setProperty('--random', Math.random()); // 随机水平偏移
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's'; // 随机动画时长
+            document.getElementById('hearts-container').appendChild(heart);
+
+            // 移除爱心元素以优化性能
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        // 每隔一段时间生成一个爱心
+        setInterval(createHeart, 300);
+
+        // 打开礼物盒
+        function openGift() {
+            const giftBox = document.querySelector('.gift-box');
+            const deliveryMessage = document.getElementById('deliveryMessage');
+
+            // 隐藏礼物盒
+            giftBox.style.display = 'none';
+
+            // 显示派送中提示
+            deliveryMessage.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
